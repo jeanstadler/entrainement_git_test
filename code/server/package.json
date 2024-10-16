@@ -4,6 +4,7 @@
 	"main": "dist/index.ts",
 	"type": "module",
 	"scripts": {
+		"compile": "npx tsc",
 		"build": "npx tsc -w",
 		"dev": "npm run build & node --env-file .env.dev --watch dist/index.js",
 		"start": "node --env-file .env --watch dist/index.js",

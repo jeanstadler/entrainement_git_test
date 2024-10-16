@@ -1,5 +1,5 @@
 # nom du workflow
-name: Garage CI/CD
+name: cours_dtb CI/CD
 
 # déclenchement du workflow
 on: workflow_dispatch
