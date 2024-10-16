@@ -1,47 +1,23 @@
-name: CI/CD Pipeline
+# nom du workflow
+name: Garage CI/CD
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-  workflow_dispatch:
+# déclenchement du workflow
+on: workflow_dispatch
 
+# tâches
 jobs:
+  # nom de la tâche
   CI:
+    # type d'environnement
     runs-on: ubuntu-latest
-
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: dtb_test
-        ports:
-          - 3306:3306
-        options: >-
-          --health-cmd="mysqladmin ping --silent"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=3
 
     steps:
       - name: Récupérer le dépôt GitHub
+        # exécuter une commande prédéfinie : checkout
         uses: actions/checkout@v4
 
-      - name: Configurer Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16"
-
-      - name: Attendre que MySQL soit prêt
-        run: |
-          until mysql -h localhost -P 3306 -uroot -proot -e "SELECT 1"; do
-            echo "En attente de MySQL..."
-            sleep 5
-          done
-
       - name: Installer les dépendances de Node
+        # exécuter une commande personnelle : run
         run: |
           cd code/server
           npm ci
@@ -54,8 +30,11 @@ jobs:
 
       - name: Installer la base de données dans le serveur MySQL
         run: |
+          sudo service mysql start
           cd code/server/mysql
-          mysql -h localhost -P 3306 -uroot -proot < my_dtb.test.sql
+          mysql -uroot -proot -e 'SOURCE my_dtb.test.sql;'
+          mysql -uroot -proot -e 'SHOW DATABASES;'
+          mysql -uroot -proot -e 'USE dtb_test; SHOW TABLES;'
 
       - name: Exécuter les tests
         run: |
