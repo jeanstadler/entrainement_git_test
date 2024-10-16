@@ -1,0 +1,4 @@
+code/server/node_modules
+code/server/dist
+mysql-db
+code/server/__tests__/__coverage__

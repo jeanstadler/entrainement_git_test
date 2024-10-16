@@ -1,0 +1,16 @@
+{
+    "name":" MySQL Server",
+    "service": "mysql", // reprendre strictement le nom du service
+    "dockerComposeFile" : "../../docker-compose.yaml",// chermin vers de dossier d'orchestration (cibler docker-compose.yaml)
+    "workspaceFolder": "/app",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                
+            ],
+            "settings": { 
+            }
+        }
+    }
+
+}

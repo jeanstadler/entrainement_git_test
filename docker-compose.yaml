@@ -1,0 +1,40 @@
+# services:
+#   server:
+#     image: node:22
+#     ports:
+#       - 3003:3003
+#     volumes:
+#       - ./code/server:/app
+#     working_dir: /app
+#     tty: true
+#   mysql:
+#     image: mysql:9
+#     ports:
+#       - 3306:3306
+#     volumes:
+#       - ./code/server/mysql:/app
+#       - ./mysql-db:/var/lib/mysql
+#     working_dir: /app
+#     environment:
+#       MYSQL_ROOT_PASSWORD: root
+#     restart: always
+services:
+  server:
+    image: node:20
+    ports:
+      - 3003:3003
+    volumes:
+      - ./code/server:/app
+    working_dir: /app
+    tty: true
+  mysql:
+    image: mysql:9
+    ports:
+      - 3306:3306
+    volumes:
+      - ./code/server/mysql:/app
+      - ./mysql-db:/var/lib/mysql
+    working_dir: /app
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    restart: always
